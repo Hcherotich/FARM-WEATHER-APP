@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const checkResourcesButton = document.getElementById('check-resources');
   
   // OpenWeatherMap API key (replace 'YOUR_API_KEY' with your actual API key)
-  const apiKey = 'YOUR_API_KEY';
+  const apiKey = '4f092ca8d7a58d20c79e74f3ad0e6594';
   const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
   
   // Define tasks and instructions
@@ -28,11 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
     "Sell crop"
   ];
   
+  // Initialize current week
+  let currentWeek = 1;
+  
   // Update progress and current task
-  function updateProgress(week) {
-    progressElement.querySelector('#current-week').textContent = week;
-    taskElement.textContent = tasks[week - 1];
-    taskInstructionsElement.textContent = getTaskInstructions(week);
+  function updateProgress() {
+    progressElement.querySelector('#current-week').textContent = currentWeek;
+    taskElement.textContent = tasks[currentWeek - 1];
+    taskInstructionsElement.textContent = getTaskInstructions(currentWeek);
   }
   
   // Get task instructions based on week
@@ -61,6 +64,11 @@ document.addEventListener('DOMContentLoaded', function () {
       statusElement.textContent = "Resources are ready. Proceed with the task.";
       statusElement.style.display = 'block';
       instructionsElement.style.display = 'block';
+      
+      // Increment current week
+      currentWeek++;
+      // Update progress
+      updateProgress();
     } else {
       statusElement.textContent = "Some resources are missing. Please check again.";
       statusElement.style.display = 'block';
@@ -70,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
   // Get weather data from API
   function getWeatherData() {
-    const location = 'YOUR_LOCATION'; // Replace with your location
+    const location = 'Nairobi';
     const url = `${apiUrl}?q=${location}&appid=${apiKey}`;
   
     fetch(url)
@@ -91,6 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   
   // Initial update
-  updateProgress(1);
+  updateProgress();
   getWeatherData();
 });
