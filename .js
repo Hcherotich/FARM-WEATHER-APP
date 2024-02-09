@@ -1,119 +1,96 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const statusElement = document.getElementById('status');
-    const currentWeek = 1;
-    const totalWeeks = 20;
-    const apiKey = 'MP9627WYRCJABAGTULEFXNE2E&contentType=json'; // Replace 'YOUR_API_KEY' with your actual API key
-    const apiUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/kenya?unitGroup=metric&key=MP9627WYRCJABAGTULEFXNE2E&contentType=json'; // Replace 'https://api.example.com/weather' with the actual API URL
+  const progressElement = document.getElementById('progress');
+  const taskElement = document.getElementById('current-task');
+  const instructionsElement = document.getElementById('instructions');
+  const taskInstructionsElement = document.getElementById('task-instructions');
+  const statusElement = document.getElementById('status');
+  const checkResourcesButton = document.getElementById('check-resources');
   
-    function updateStatus(message) {
-      statusElement.innerHTML = `<strong>Week ${currentWeek}:</strong> ${message}`;
+  // OpenWeatherMap API key (replace 'YOUR_API_KEY' with your actual API key)
+  const apiKey = 'YOUR_API_KEY';
+  const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  
+  // Define tasks and instructions
+  const tasks = [
+    "Planting",
+    "Watch out for rains",
+    "Watch out for rains",
+    "Potato germination",
+    "Prepare to weed",
+    "Fertilizer top dressing",
+    "Watch for pests and blight",
+    "Weed if any weeds exist",
+    "Apply foliar for flowering",
+    "Watch and pray",
+    "Look for market",
+    "Look for market",
+    "Look for market",
+    "Sell crop"
+  ];
+  
+  // Update progress and current task
+  function updateProgress(week) {
+    progressElement.querySelector('#current-week').textContent = week;
+    taskElement.textContent = tasks[week - 1];
+    taskInstructionsElement.textContent = getTaskInstructions(week);
+  }
+  
+  // Get task instructions based on week
+  function getTaskInstructions(week) {
+    switch (week) {
+      case 1:
+        return "Instructions for planting...";
+      case 2:
+      case 3:
+        return "Instructions for watching out for rains...";
+      // Add instructions for other weeks as needed
+      default:
+        return "No instructions available for this week.";
     }
+  }
   
-    function fetchWeather() {
-      fetch(`${apiUrl}?week=${currentWeek}&apiKey=${MP9627WYRCJABAGTULEFXNE2E&contentType=json}`)
-        .then(response => response.json())
-        .then(data => {
-          updateStatus(`Weather forecast: ${data.forecast}`);
-        })
-        .catch(error => {
-          console.error('Error fetching weather data:', error);
-        });
+  // Check resources button click event
+  checkResourcesButton.addEventListener('click', function () {
+    const landReady = document.getElementById('land-ready').checked;
+    const rainEnough = document.getElementById('rain-enough').checked;
+    const seedsAvailable = document.getElementById('seeds-available').checked;
+    const fertilizerAvailable = document.getElementById('fertilizer-available').checked;
+    const laborAvailable = document.getElementById('labor-available').checked;
+  
+    if (landReady && rainEnough && seedsAvailable && fertilizerAvailable && laborAvailable) {
+      statusElement.textContent = "Resources are ready. Proceed with the task.";
+      statusElement.style.display = 'block';
+      instructionsElement.style.display = 'block';
+    } else {
+      statusElement.textContent = "Some resources are missing. Please check again.";
+      statusElement.style.display = 'block';
+      instructionsElement.style.display = 'none';
     }
-  
-    function plantPotatoes() {
-      updateStatus('Planting potatoes.');
-    }
-  
-    function watchForRains() {
-      updateStatus('Watching out for rains.');
-      fetchWeather();
-    }
-    function germinatePotatoes() {
-        updateStatus('Hurray! Potatoes germinate.');
-      }
-    
-      function weed() {
-        updateStatus('Weeding.');
-      }
-    
-      function applyFertilizer() {
-        updateStatus('Applying fertilizer.');
-      }
-    
-      function applyFoliar() {
-        updateStatus('Applying foliar for flowering.');
-      }
-    
-      function watchForPestsAndBlight() {
-        updateStatus('Watching for pests and blight.');
-      }
-    
-      function applyChemicals() {
-        updateStatus('Applying chemicals to prevent blight.');
-      }
-    
-      function lookForMarket() {
-        updateStatus('Looking for market.');
-      }
-    
-      function sellCrop() {
-        updateStatus('Hurray! Selling our crop.');
-      }
-    
-  
-    // Define other functions and weeks as before...
-  
-    function nextWeek() {
-      if (currentWeek <= totalWeeks) {
-        switch (currentWeek) {
-          case 1:
-            plantPotatoes();
-            break;
-          case 2:
-          case 3:
-            watchForRains();
-            break;
-          // Define other cases and tasks as before...
-          default:
-            updateStatus('Watching and praying...');
-            break;
-        case 4:
-        germinatePotatoes();
-        break;
-      case 8:
-        weed();
-        break;
-      case 10:
-        applyFertilizer();
-        break;
-      case 11:
-        watchForPestsAndBlight();
-        break;
-      case 12:
-        applyFoliar();
-        break;
-      case 12:
-        weed();
-        break;
-      case 14:
-      case 15:
-      case 16:
-        lookForMarket();
-        break;
-      case 17:
-        sellCrop();
-        break;
-        default:
-        updateStatus('Watching and praying...');
-        break;
-    }
-
-    currentWeek++;
-      } else {
-        updateStatus('Farming cycle completed.');
-      }
-    }
-  
-    // Initial call to start the process
-    nextWeek();
   });
+  
+  // Get weather data from API
+  function getWeatherData() {
+    const location = 'YOUR_LOCATION'; // Replace with your location
+    const url = `${apiUrl}?q=${location}&appid=${apiKey}`;
+  
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const weatherDescription = data.weather[0].description;
+        statusElement.textContent = `Weather forecast: ${weatherDescription}`;
+        statusElement.style.display = 'block';
+      })
+      .catch(error => {
+        console.error('There was a problem fetching the weather data:', error);
+      });
+  }
+  
+  // Initial update
+  updateProgress(1);
+  getWeatherData();
+});

@@ -3,15 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Potato Farming Schedule</title>
+  <title>Potato Farmer's Friend</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <div class="farm-schedule">
-    <h1>Potato Farming Schedule</h1>
-    
-    <div id="status"></div>
+    <h1>Potato Farmer's Friend</h1>
+    <div id="progress">
+        <p>Week: <span id="current-week">1</span></p>
+        <p>Task: <span id="current-task"></span></p>
+    </div>
+    <div id="actions">
+        <h2>Land and Resources</h2>
+        <ul>
+          <li><label for="land-ready">Land Ready?</label><input type="checkbox" id="land-ready"></li>
+          <li><label for="rain-enough">Enough Rain?</label><input type="checkbox" id="rain-enough"></li>
+          <li><label for="seeds-available">Seeds Available?</label><input type="checkbox" id="seeds-available"></li>
+          <li><label for="fertilizer-available">Fertilizer Available?</label><input type="checkbox" id="fertilizer-available"></li>
+          <li><label for="labor-available">Labor Available?</label><input type="checkbox" id="labor-available"></li>
+        </ul>
+        <button id="check-resources">Check Resources</button>
+    </div>
+    <div id="instructions" style="display: none;">
+        <h2>Current Task Instructions</h2>
+        <p id="task-instructions"></p>
+    </div>
+    <div id="status">
+        <h2>Weather Forecast</h2>
+        <p id="weather-forecast">Fetching weather data...</p>
+    </div>
     
     <script src="script.js"></script>
   </div>
