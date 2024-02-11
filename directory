@@ -1,0 +1,9 @@
+Potato-Farmers-S-Friend
+_project/
+│
+├── public/
+│   └── styles.css
+│
+├── server.js (or any other Node.js file)
+├── index.html
+└── script.js
