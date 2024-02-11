@@ -6,10 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const statusElement = document.getElementById('status-message');
   const checkResourcesButton = document.getElementById('check-resources');
 
-  // OpenWeatherMap API key
-  const apiKey = 'YOUR_API_KEY';
-  const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
-
   // Define tasks and instructions
   const tasks = [
     "Planting", // Week 1: Planting
@@ -93,23 +89,19 @@ document.addEventListener('DOMContentLoaded', function () {
       currentWeek++;
       // Update progress
       updateProgress();
-    } else if (currentWeek === 1) {
-      statusElement.textContent = "Please check all resources before proceeding.";
-      statusElement.style.display = 'block';
-      instructionsElement.style.display = 'none';
     } else {
       statusElement.textContent = "Some resources are missing. Please check again.";
       statusElement.style.display = 'block';
       instructionsElement.style.display = 'none';
     }
   });
-
   // Fetch weather data from API
   function getWeatherData() {
-    const location = 'Nairobi'; // You can change the location as needed
-    const apiUrl='https://openweathermap.org/'
-    const apiKey='4f092ca8d7a58d20c79e74f3ad0e6594'
-    const url = `${apiUrl}?q=${Nairobi}&appid=${apiKey}`;
+    const location = 'Nairobi'; d
+    const apiKey = '4f092ca8d7a58d20c79e74f3ad0e6594'; 
+    const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+
+    const url = `${apiUrl}?q=${location}&appid=${apiKey}`;
 
     fetch(url)
       .then(response => {
@@ -130,5 +122,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial update
   updateProgress();
-  getWeatherData();
+});
+const express = require('express');
+const app = express();
+
+app.use(express.static('public'));
+
+app.listen(5500, () => {
+  console.log('Server is running on port 5500');
 });
