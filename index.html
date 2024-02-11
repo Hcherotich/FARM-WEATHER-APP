@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Potato Farmer's Assistant</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  
-
 </head>
 <body>
 
   <div class="container farm-schedule">
     <h1 class="text-center">Potato Farmer's Assistant</h1>
+    <div id="week-info">
+      <h2 id="week-title"></h2>
+      <p id="task-description"></p>
+    </div>
     <div id="progress">
         <p>Week: <span id="current-week">1</span></p>
         <p>Task: <span id="current-task"></span></p>
@@ -38,10 +39,10 @@
         <p id="status-message"></p>
     </div>
   </div>
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
   <script src="script.js"></script>
 </body>
 </html>
