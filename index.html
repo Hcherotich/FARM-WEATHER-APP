@@ -4,20 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Potato Farmer's Assistant</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container farm-schedule">
     <h1 class="text-center">Potato Farmer's Assistant</h1>
     <div id="week-info">
-      <h2 id="week-title"></h2>
-      <p id="task-description"></p>
-    </div>
-    <div id="progress">
-        <p>Week: <span id="current-week">1</span></p>
-        <p>Task: <span id="current-task"></span></p>
+        <p id="week-title">Week: <span id="current-week">1</span></p>
+        <p id="task">Task: <span id="current-task"></span></p>
     </div>
     <div id="actions">
         <h2>Land and Resources</h2>
@@ -29,6 +28,7 @@
           <li><label for="labor-available">Labor Available?</label><input type="checkbox" id="labor-available"></li>
         </ul>
         <button id="check-resources" class="btn btn-primary">Check Resources</button>
+        <button class="btn btn-sm btn-secondary" id="test">test</button>
     </div>
     <div id="instructions" style="display: none;">
         <h2>Current Task Instructions</h2>
@@ -38,11 +38,17 @@
         <h2>Status</h2>
         <p id="status-message"></p>
     </div>
+    <!-- Next week button -->
+    <button id="next-week" class="btn btn-primary">Next Week</button>
   </div>
-
+  
+  <!-- jQuery and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- JavaScript file -->
+  <!-- <script src="script.js"></script> -->
   <script src="script.js"></script>
 </body>
 </html>

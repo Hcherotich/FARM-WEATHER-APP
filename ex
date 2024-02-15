@@ -1,4 +1,4 @@
-
+//
 document.addEventListener('DOMContentLoaded', function () {
   const progressElement = document.getElementById('progress');
   const taskElement = document.getElementById('current-task');
@@ -33,35 +33,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Update progress and current task
   function updateProgress() {
-    // Retrieve elements from the DOM
-    const progressElement = document.getElementById('progress');
-    const taskElement = document.getElementById('current-task');
-    const instructionsElement = document.getElementById('instructions');
-    const statusElement = document.getElementById('status-message');}
-    
-    // Check if elements exist in the DOM
-    if (!progressElement || !taskElement || !instructionsElement || !statusElement) {
-        console.error('One or more required elements not found in the DOM.');
-        return;}
-    {
       progressElement.querySelector('#current-week').textContent = currentWeek;
       taskElement.textContent = tasks[currentWeek - 1];
       taskElement.textContent = `Week ${currentWeek}: ${tasks[currentWeek - 1]}`;
       instructionsElement.textContent = getTaskInstructions(currentWeek);
-  }
-  if (currentWeek < tasks.length) {
-    currentWeek =1;
-    instructionsElement.textContent = getTaskInstructions(currentWeek + 1);
-} else {
-    instructionsElement.textContent = "No instructions available for the next week.";
-}
+  // Show or hide "Land and Resources" section based on current week
+  if (currentWeek === 1) {
+    landResourcesSection.style.display = 'block';
+  } else {
+    landResourcesSection.style.display = 'none';
+  }}
 
-// Show or hide "Land and Resources" section based on current week
-if (currentWeek === 1) {
-  landResourcesSection.style.display = 'block';
-} else {
-  landResourcesSection.style.display = 'none';
-}
   // Get task instructions based on week
   function getTaskInstructions(week) {
       switch (week) {
@@ -107,7 +89,7 @@ if (currentWeek === 1) {
           statusElement.style.display = 'block';
       } else {
           statusElement.textContent = "Some resources are missing. Please check again.";
-          statusElement.style.display = 'block';
+          statusElement.style.display = 'none';
       }
 
       // Increment current week
@@ -130,6 +112,7 @@ if (currentWeek === 1) {
 
   // Initial update
   updateProgress();
+});
 function showWeek(weekNumber) {
   const week = weeks[weekNumber - 1];
   document.getElementById('week-title').textContent = week.title;
@@ -246,6 +229,6 @@ app.use(express.static('public', { 'extensions': ['html', 'css', 'js'] }));
 
 // Start the server
 const PORT = process.env.PORT || 5500;
-app.listen(PORT, () => (
-  console.log(`Server is running on port ${PORT}`))
-)})
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
