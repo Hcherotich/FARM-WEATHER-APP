@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Potato Farmer's Assistant</title>
-  <!-- Bootstrap CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potato Farmer's Assistant</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
-  <!-- Custom CSS -->
-  <!-- <link rel="stylesheet" href="styles.css"> -->
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
   <div class="container farm-schedule">
     <h1 class="text-center">Potato Farmer's Assistant</h1>
     <div id="week-info">
         <p id="week-title">Week: <span id="current-week">1</span></p>
-        <p id="task">Task: <span id="current-task"></span></p>
+        <p id="task">Task: <span id="instructions"></span></p>
     </div>
-    <div id="actions">
+    <div id="status">
+      <h6>Status</h6>
+      <p id="status-message"></p>
+    </div>
+    <div class="land">
+      <div class="weather">
+        <h2>weather</h2>
+        <ul class="list-unstyled" id="weatherDisplay">
+          
+        </ul>
+      </div>
+      <div class="action" id="actions">
         <h2>Land and Resources</h2>
         <ul class="list-unstyled">
           <li><label for="land-ready">Land Ready?</label><input type="checkbox" id="land-ready"></li>
@@ -27,28 +34,21 @@
           <li><label for="fertilizer-available">Fertilizer Available?</label><input type="checkbox" id="fertilizer-available"></li>
           <li><label for="labor-available">Labor Available?</label><input type="checkbox" id="labor-available"></li>
         </ul>
-        <button id="check-resources" class="btn btn-primary">Check Resources</button>
-        <button class="btn btn-sm btn-secondary" id="test">test</button>
+        <button id="check-resources" class="btn btn-primary" >Check Resources</button>
+      </div>
     </div>
-    <div id="instructions" style="display: none;">
-        <h2>Current Task Instructions</h2>
-        <p id="task-instructions"></p>
-    </div>
-    <div id="status">
-        <h2>Status</h2>
-        <p id="status-message"></p>
-    </div>
-    <!-- Next week button -->
-    <button id="next-week" class="btn btn-primary">Next Week</button>
   </div>
-  
+    <!-- Next week button -->
+    <button id="next-week" class="btn btn-primary mt-2">Next Week</button>
+  </div>
+  <!-- <div id="instructions" style="display: none;">
+    <h2>Current Task Instructions</h2>
+    <p id="task-instructions"></p>
+</div> -->
+
+<!-- <div id="weeks"></div> -->
+
   <!-- jQuery and Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
-  <!-- JavaScript file -->
-  <!-- <script src="script.js"></script> -->
   <script src="script.js"></script>
 </body>
 </html>
