@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
   const progressElement = document.getElementById('progress');
   const taskElement = document.getElementById('current-task');
   const instructionsElement = document.getElementById('instructions');
@@ -309,5 +309,4 @@ getWeatherData();
 // app.listen(PORT, () => (
 //   console.log(`Server is running on port ${PORT}`))
 // )
-})
-
+// })
