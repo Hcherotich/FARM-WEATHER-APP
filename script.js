@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
   const progressElement = document.getElementById('progress');
   const taskElement = document.getElementById('current-task');
   const instructionsElement = document.getElementById('instructions');
@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const checkResourcesButton = document.getElementById('check-resources');
   const nextWeekButton = document.getElementById('next-week');
   const weeksContainer = document.getElementById('weeks');
+  const weatherDisplay = document.getElementById('weatherDisplay');
+  let results;
+  let currentIndex = 0;
 
   // Defining tasks and instructions
   const tasks = [
@@ -35,35 +38,37 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateProgress() {
     // Retrieve elements from the DOM
     const progressElement = document.getElementById('progress');
-    const taskElement = document.getElementById('current-task');
+    // const taskElement = document.getElementById('current-task');
     const instructionsElement = document.getElementById('instructions');
     const statusElement = document.getElementById('status-message');}
     
     // Check if elements exist in the DOM
     if (!progressElement || !taskElement || !instructionsElement || !statusElement) {
-        console.error('One or more required elements not found in the DOM.');
-        return;}
+        // console.error('One or more required elements not found in the DOM.');
+        // return;
+      }
+    else
     {
       progressElement.querySelector('#current-week').textContent = currentWeek;
       taskElement.textContent = tasks[currentWeek - 1];
       taskElement.textContent = `Week ${currentWeek}: ${tasks[currentWeek - 1]}`;
       instructionsElement.textContent = getTaskInstructions(currentWeek);
-  }
-  if (currentWeek < tasks.length) {
-    currentWeek =1;
-    instructionsElement.textContent = getTaskInstructions(currentWeek + 1);
-} else {
-    instructionsElement.textContent = "No instructions available for the next week.";
-}
-
-// Show or hide "Land and Resources" section based on current week
-if (currentWeek === 1) {
-  landResourcesSection.style.display = 'block';
-} else {
-  landResourcesSection.style.display = 'none';
-}
-  // Get task instructions based on week
-  function getTaskInstructions(week) {
+    }
+    if (currentWeek < tasks.length) {
+      currentWeek =1;
+      instructionsElement.textContent = getTaskInstructions(currentWeek + 1);
+    } else {
+        instructionsElement.textContent = "No instructions available for the next week.";
+    }
+  
+    // Show or hide "Land and Resources" section based on current week
+    if (currentWeek === 1) {
+      // landResourcesSection.style.display = 'block';
+    } else {
+      // landResourcesSection.style.display = 'none';
+    }
+   // Get task instructions based on week
+   function getTaskInstructions(week) {
       switch (week) {
           case 1:
               return "Prepare land, get money for labor, ensure there is enough rain and plant your crop";
@@ -105,6 +110,9 @@ if (currentWeek === 1) {
       if (landReady && rainEnough && seedsAvailable && fertilizerAvailable && laborAvailable) {
           statusElement.textContent = "Resources are ready. Proceed with the task.";
           statusElement.style.display = 'block';
+          // removing some elements
+          const actions = document.getElementById('actions');
+          actions.style.display = 'none';
       } else {
           statusElement.textContent = "Some resources are missing. Please check again.";
           statusElement.style.display = 'block';
@@ -125,7 +133,7 @@ if (currentWeek === 1) {
           currentWeek = i;
           updateProgress();
       });
-      weeksContainer.appendChild(weekButton);
+      // weeksContainer.appendChild(weekButton);
   }
 
   // Initial update
@@ -209,13 +217,14 @@ const weeks = [
 
 
 function getWeatherData() {
-  const location = 'Nairobi'; d
+  const location = 'Nairobi'; 
   const apiKey = '4f092ca8d7a58d20c79e74f3ad0e6594'; 
   const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  const weatherApi = 'https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=4f092ca8d7a58d20c79e74f3ad0e6594'
 
   const url = `${apiUrl}?q=${location}&appid=${apiKey}`;
-
-  fetch(url)
+  console.log(url)
+  fetch(weatherApi)
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -223,29 +232,82 @@ function getWeatherData() {
       return response.json();
     })
     .then(data => {
-      const weatherDescription = data.weather[0].description;
-      statusElement.textContent = `Weather forecast: ${weatherDescription}`;
+      // console.log(data.list)
+      
+      results = data.list;
+      let info = displayWeather(
+        results[currentIndex].clouds.all, 
+        results[currentIndex].visibility,
+        results[currentIndex].dt_txt
+        );
       statusElement.style.display = 'block';
+      statusElement.getElementsByClassName
+      weatherDisplay.innerHTML =  info;
     })
     .catch(error => {
       console.error('There was a problem fetching the weather data:', error);
     });
 }
 
+function displayWeather (clouds,visibility,date) {
+  return `<li>clouds - ${clouds}</li>
+          <li>visibiility - ${visibility}</li
+          <li> Date - ${date} </li> <br>
+          <button class="btn btn-primary" id="previous" onclick="previousWeather('${date}')">previous</button>
+          <button class="btn btn-primary" id="next" onclick="nextWeather('${date}')">next</button>`
+}
+
+function nextWeather(date){
+  currentIndex = currentIndex + 1;
+  
+  if(currentIndex < results.length){
+    console.log(currentIndex)
+    let next = displayWeather(
+      results[currentIndex].clouds.all, 
+      results[currentIndex].visibility,
+      results[currentIndex].dt_txt
+      );
+      weatherDisplay.innerHTML =  next;
+      
+  } else {
+    const nextElement = document.getElementById('next');
+    nextElement.style.background = "gray";
+  }
+}
+
+function previousWeather(){
+  
+  
+  if(currentIndex > 0){
+    currentIndex = currentIndex - 1;
+    let next = displayWeather(
+      results[currentIndex].clouds.all, 
+      results[currentIndex].visibility,
+      results[currentIndex].dt_txt
+      );
+      weatherDisplay.innerHTML =  next;
+  } else {
+    const nextElement = document.getElementById('previous');
+    nextElement.style.background = "gray";
+  }
+}
+
 // Initial update
 updateProgress(); 
 getWeatherData(); 
 
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 
-// Serve static files from the 'public' directory
-app.use(express.static('public', { 'extensions': ['html', 'css', 'js'] }));
+// // Serve static files from the 'public' directory
+// app.use(express.static('public', { 'extensions': ['html', 'css', 'js'] }));
 
 // Your other Express routes and configurations go here...
 
 // Start the server
-const PORT = process.env.PORT || 5500;
-app.listen(PORT, () => (
-  console.log(`Server is running on port ${PORT}`))
-)})
+// const PORT = process.env.PORT || 5500;
+// app.listen(PORT, () => (
+//   console.log(`Server is running on port ${PORT}`))
+// )
+// })
+
