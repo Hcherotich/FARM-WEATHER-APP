@@ -5,10 +5,10 @@
   const instructionsElement = document.getElementById('instructions');
   const statusElement = document.getElementById('status-message');
   const checkResourcesButton = document.getElementById('check-resources');
-  const nextWeekButton = document.getElementById('next-week');
+ // const nextWeekButton = document.getElementById('next-week');
   const weeksContainer = document.getElementById('weeks');
   const weatherDisplay = document.getElementById('weatherDisplay');
-  let results;
+  
   let currentIndex = 0;
 
   // Defining tasks and instructions
@@ -32,13 +32,12 @@
   ];
 
   // Initialize current week
-  let currentWeek = 1;
-
+   let currentWeek = 1;
   // Update progress and current task
   function updateProgress() {
     // Retrieve elements from the DOM
     const progressElement = document.getElementById('progress');
-    // const taskElement = document.getElementById('current-task');
+     const taskElement = document.getElementById('current-task');
     const instructionsElement = document.getElementById('instructions');
     const statusElement = document.getElementById('status-message');}
     
@@ -50,13 +49,13 @@
     else
     {
       progressElement.querySelector('#current-week').textContent = currentWeek;
-      taskElement.textContent = tasks[currentWeek - 1];
+      //taskElement.textContent = tasks[currentWeek - 1];
       taskElement.textContent = `Week ${currentWeek}: ${tasks[currentWeek - 1]}`;
       instructionsElement.textContent = getTaskInstructions(currentWeek);
     }
     if (currentWeek < tasks.length) {
-      currentWeek =1;
-      instructionsElement.textContent = getTaskInstructions(currentWeek + 1);
+      currentWeek++;
+      instructionsElement.textContent = getTaskInstructions(currentWeek);
     } else {
         instructionsElement.textContent = "No instructions available for the next week.";
     }
@@ -251,7 +250,7 @@ function getWeatherData() {
 
 function displayWeather (clouds,visibility,date) {
   return `<li>clouds - ${clouds}</li>
-          <li>visibiility - ${visibility}</li
+          <li>visibility - ${visibility}</li>
           <li> Date - ${date} </li> <br>
           <button class="btn btn-primary" id="previous" onclick="previousWeather('${date}')">previous</button>
           <button class="btn btn-primary" id="next" onclick="nextWeather('${date}')">next</button>`
@@ -296,17 +295,3 @@ function previousWeather(){
 updateProgress(); 
 getWeatherData(); 
 
-// const express = require('express');
-// const app = express();
-
-// // Serve static files from the 'public' directory
-// app.use(express.static('public', { 'extensions': ['html', 'css', 'js'] }));
-
-// Your other Express routes and configurations go here...
-
-// Start the server
-// const PORT = process.env.PORT || 5500;
-// app.listen(PORT, () => (
-//   console.log(`Server is running on port ${PORT}`))
-// )
-// })
