@@ -8,7 +8,7 @@
   const nextWeekButton = document.getElementById('next-week');
   const weeksContainer = document.getElementById('weeks');
   const weatherDisplay = document.getElementById('weatherDisplay');
-  let results;
+  
   let currentIndex = 0;
 
   // Defining tasks and instructions
@@ -55,7 +55,7 @@
       instructionsElement.textContent = getTaskInstructions(currentWeek);
     }
     if (currentWeek < tasks.length) {
-      currentWeek =1;
+      currentWeek++;
       instructionsElement.textContent = getTaskInstructions(currentWeek + 1);
     } else {
         instructionsElement.textContent = "No instructions available for the next week.";
@@ -249,9 +249,9 @@ function getWeatherData() {
     });
 }
 
-function displayWeather (clouds,visibility,date) {
-  return `<li>clouds - ${clouds}</li>
-          <li>visibiility - ${visibility}</li
+function displayWeather (Clouds,Visibility,date) {
+  return `<li>clouds - ${Clouds}</li>
+          <li>visibiility - ${Visibility}</li>
           <li> Date - ${date} </li> <br>
           <button class="btn btn-primary" id="previous" onclick="previousWeather('${date}')">previous</button>
           <button class="btn btn-primary" id="next" onclick="nextWeather('${date}')">next</button>`
